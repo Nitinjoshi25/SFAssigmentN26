@@ -1,0 +1,55 @@
+<template>
+    <template lwc:if={contactProducts}>
+        <div class="slds-var-p_medium table-fix-head mainTable">
+            <table class="slds-table slds-table_bordered slds-table_col-bordered">
+                <thead>
+                <tr>
+                    <th scope="col" class="slds-border_left slds-border_right">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_2-of-6 slds-var-m-right_xx-small">Plan Type</div>
+                            <div class="slds-col slds-size_2-of-6">Price</div>
+                            <div class="slds-col slds-size_1-of-6 discountInputField">Discount</div>
+                            <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">Actions</div>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <template for:each={contactProducts} for:item="contactProduct" for:index="index">
+                    <tr key={contactProduct}>
+                        <td class="slds-border_left slds-border_right">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_2-of-6 slds-var-m-right_xx-small">
+                                    <lightning-combobox name="planType" variant="label-hidden" value={contactProduct.Plan_Type__c} data-index={index} onchange={checkSelectedPlan} options={planTypeOptions}></lightning-combobox>
+                                </div>
+                                <div class="slds-col slds-size_2-of-6">
+                                    <lightning-record-edit-form object-api-name="Contact_Product__c">
+                                        <lightning-input-field field-name="Price__c" value={contactProduct.Price__c} data-index={index} variant="label-hidden" onfocusout={setPriceChangesInRecord}></lightning-input-field>
+                                    </lightning-record-edit-form>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 discountInputField">
+                                    <lightning-record-edit-form object-api-name="Contact_Product__c">
+                                        <lightning-input-field field-name="Discount__c" value={contactProduct.Discount__c} data-index={index} variant="label-hidden" onfocusout={setDiscountChangesInRecord}></lightning-input-field>
+                                    </lightning-record-edit-form>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-align_absolute-center">
+                                    <lightning-button-icon icon-name="action:remove" onclick={removeRecord} value={index} alternative-text="Remove Record"></lightning-button-icon>
+                                    <template lwc:if={contactProduct.Id}>
+                                        <lightning-button-icon icon-name="action:info" onclick={redirectToProductPlan} value={contactProduct.Plan_Type__c} alternative-text="Redirect to Product Plan"></lightning-button-icon>
+                                    </template>
+                                    <template lwc:if={contactProduct.Id}>
+                                        <lightning-button-icon icon-name="action:preview" onclick={redirectToRecord} value={contactProduct.Id} alternative-text="Redirect to Record"></lightning-button-icon>
+                                    </template>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </template>
+                </tbody>
+            </table>
+            <div class="addNewRow">
+                <lightning-button icon-name="action:new" label="Add new Plan" onclick={addNewRecord}></lightning-button>
+            </div>
+        </div>
+    </template>
+</template>

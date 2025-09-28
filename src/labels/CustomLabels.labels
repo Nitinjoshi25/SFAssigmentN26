@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Contact_w_1_Product</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Contact w/ +1 Product</shortDescription>
+        <value>This contact has more than one product of the same type:</value>
+    </labels>
+</CustomLabels>

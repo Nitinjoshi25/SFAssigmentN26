@@ -1,0 +1,26 @@
+<template>
+    <template lwc:if={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium" class="slds-is-absolute"></lightning-spinner>
+    </template>
+    <lightning-card variant="narrow" title={contactName} icon-name="standard:contact">
+        <div class="container">
+            <div class="slds-grid mainMenu">
+                <div class="slds-size_6-of-12">
+                    <div class="slds-text-heading_small slds-text-align_center">Product: {contactProduct}</div>
+                </div>
+                <div class="slds-size_6-of-12">
+                    <div class="slds-text-heading_small slds-text-align_center">Home Location: {contactHomeLocationName}</div>
+                </div>
+            </div>
+            <c-contact-case-products-rows contact-id={contactId} contact-allow-multiple-product={contactAllowMultipleProduct} contact-product-id={contactProductId}
+                contact-home-location= {contactHomeLocation} onsetspinnerstatus={setSpinnerStatus} onsetactionavailablebtnstatus={setActionAvailableBtnStatus}
+                contact-discount-applied={contactDiscountApplied}></c-contact-case-products-rows>
+        </div>
+        <template lwc:if={areActionsAvailable}>
+            <p slot="footer" class="slds-clearfix">
+                <lightning-button variant="destructive" label="Cancel" onclick={cancelChanges} class="slds-var-m-left_x-small slds-float_right"></lightning-button>
+                <lightning-button variant="brand" label="Save" onclick={saveRecords} class="slds-var-m-left_x-small slds-float_right"></lightning-button>
+            </p>
+        </template>
+    </lightning-card>
+</template>
